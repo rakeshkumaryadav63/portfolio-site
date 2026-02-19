@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-3xl font-bold mb-6">Create Account</h2>
+
+<form method="POST" class="bg-white p-6 shadow-lg rounded-lg max-w-lg">
+    {% csrf_token %}
+
+    <div class="mb-4">
+        <label>Username</label>
+        <input type="text" name="username" class="w-full border p-2 rounded" required>
+    </div>
+
+    <div class="mb-4">
+        <label>Email</label>
+        <input type="email" name="email" class="w-full border p-2 rounded" required>
+    </div>
+
+    <div class="mb-4">
+        <label>Password</label>
+        <input type="password" name="password" class="w-full border p-2 rounded" required>
+    </div>
+
+    <button type="submit" class="bg-black text-white px-4 py-2 rounded">
+        Sign Up
+    </button>
+
+</form>
+
+{% endblock %}

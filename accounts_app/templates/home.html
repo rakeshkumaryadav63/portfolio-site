@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="text-center py-20">
+
+    <h1 class="text-5xl font-bold mb-6">
+        Hi, I'm Rakesh Yadav ..
+    </h1>
+
+    <p class="text-xl text-gray-600 mb-8">
+        Full Stack Django Developer | Python | PostgreSQL | Docker | DRF
+    </p>
+
+    <a href="/projects/" 
+       class="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition">
+        View My Projects
+    </a>
+
+</div>
+
+<div class="mt-20">
+    <h2 class="text-3xl font-bold mb-6 text-center">Skills</h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div class="bg-white p-6 shadow rounded">Python</div>
+        <div class="bg-white p-6 shadow rounded">Django</div>
+        <div class="bg-white p-6 shadow rounded">PostgreSQL</div>
+        <div class="bg-white p-6 shadow rounded">Docker</div>
+    </div>
+</div>
+
+{% endblock %}

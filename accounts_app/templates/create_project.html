@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-3xl font-bold mb-6">Create Project</h2>
+
+<form method="POST" class="bg-white p-6 shadow rounded-lg max-w-lg">
+    {% csrf_token %}
+
+    <input type="text" name="title" placeholder="Title"
+           class="w-full border p-2 mb-4 rounded" required>
+
+    <textarea name="description" placeholder="Description"
+              class="w-full border p-2 mb-4 rounded" required></textarea>
+
+    <input type="text" name="tech_stack" placeholder="Tech Stack"
+           class="w-full border p-2 mb-4 rounded" required>
+
+    <input type="url" name="github_link" placeholder="GitHub Link"
+           class="w-full border p-2 mb-4 rounded">
+
+    <input type="url" name="live_demo_link" placeholder="Live Demo Link"
+           class="w-full border p-2 mb-4 rounded">
+
+    <button type="submit"
+            class="bg-black text-white px-4 py-2 rounded">
+        Create
+    </button>
+
+</form>
+
+{% endblock %}

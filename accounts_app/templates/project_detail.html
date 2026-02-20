@@ -4,35 +4,37 @@
 
 {% block content %}
 
-<div class="max-w-3xl mx-auto bg-white p-10 rounded-xl shadow-lg">
+<section class="min-h-screen bg-gray-900 text-white py-16 px-6">
 
-    <h1 class="text-4xl font-bold mb-6">
-        {{ project.title }}
-    </h1>
+    <div class="max-w-4xl mx-auto bg-white/10 backdrop-blur-lg p-10 rounded-xl shadow-lg">
 
-    <p class="text-gray-600 mb-6">
-        {{ project.description }}
-    </p>
+        <h1 class="text-4xl font-bold text-blue-400 mb-6">
+            {{ project.title }}
+        </h1>
 
-    <div class="mb-6">
-        <span class="font-semibold">Tech Stack:</span>
-        <span class="text-gray-700">{{ project.tech_stack }}</span>
+        <p class="text-gray-300 mb-6">
+            {{ project.description }}
+        </p>
+
+        <div class="mb-6">
+            <span class="text-yellow-400 font-semibold">Tech Stack:</span>
+            <p class="text-gray-400 mt-2">{{ project.tech_stack }}</p>
+        </div>
+
+        <div class="flex space-x-6 mt-8">
+            <a href="{{ project.github_link }}" target="_blank"
+               class="bg-gray-800 px-6 py-3 rounded-lg hover:bg-gray-700 transition">
+                GitHub
+            </a>
+
+            <a href="{{ project.live_demo_link }}" target="_blank"
+               class="bg-blue-500 px-6 py-3 rounded-lg hover:bg-blue-600 transition">
+                Live Demo
+            </a>
+        </div>
+
     </div>
 
-    <div class="flex gap-4">
-        <a href="{{ project.github_link }}"
-           target="_blank"
-           class="bg-black text-white px-5 py-2 rounded hover:bg-gray-800 transition">
-            GitHub
-        </a>
-
-        <a href="{{ project.live_demo_link }}"
-           target="_blank"
-           class="bg-green-600 text-white px-5 py-2 rounded hover:bg-green-700 transition">
-            Live Demo
-        </a>
-    </div>
-
-</div>
+</section>
 
 {% endblock %}

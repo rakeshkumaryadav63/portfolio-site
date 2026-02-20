@@ -1,35 +1,297 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>{% block title %}Portfolio{% endblock %}</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+
+    <style>
+       
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: -200px;
+            left: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59,130,246,0.15), transparent 70%);
+            z-index: -1;
+        }
+
+   
+        body {
+            cursor: none;
+        }
+
+        #cursor {
+            width: 10px;
+            height: 10px;
+            background: #3b82f6;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+
+        #cursor-ring {
+            width: 35px;
+            height: 35px;
+            border: 2px solid rgba(59,130,246,0.6);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: all 0.15s ease-out;
+        }
+
+        .cursor-hover {
+            transform: translate(-50%, -50%) scale(1.8);
+            border-color: #8b5cf6 !important;
+        }
+        .profile-slide {
+    transition: opacity 1s ease-in-out;
+}
+.about-slide {
+    transition: opacity 2s ease-in-out;
+}
+    </style>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gray-950 text-white pt-20">
 
-<nav class="bg-black text-white p-4 flex justify-between">
-    <h1 class="text-xl font-bold">Rakesh Yadav</h1>
-    <div>
-        <a href="/" class="px-3 hover:text-yellow-400">Home</a>
-        <a href="/projects/" class="px-3 hover:text-yellow-400">Projects</a>
-        <a href="/contact/" class="px-3 hover:text-yellow-400">Contact</a>
-        <a href="/about/" class="px-3 hover:text-yellow-400">About</a>
 
-        {% if user.is_superuser %}
-    <a href="/dashboard/" class="px-3">Dashboard</a>
-{% endif %}
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
+
+<nav id="navbar"
+     class="fixed top-0 w-full z-50 backdrop-blur-md bg-black/30 border-b border-white/10
+            p-4 flex justify-between items-center transition-all duration-300">
+
+    <h1 class="text-xl font-semibold tracking-wide">
+        <span class="text-white">Rakesh</span>
+        <span class="text-blue-400">Yadav</span>
+    </h1>
+
+    <div class="flex items-center space-x-6">
+
+        <div class="space-x-5 text-sm">
+            <a href="/" class="hover:text-blue-400 transition">Home</a>
+            <a href="/projects/" class="hover:text-blue-400 transition">Projects</a>
+            <a href="/contact/" class="hover:text-blue-400 transition">Contact</a>
+            <a href="/about/" class="hover:text-blue-400 transition">About</a>
+
+            {% if user.is_superuser %}
+                <a href="/dashboard/" class="hover:text-blue-400 transition">Dashboard</a>
+            {% endif %}
+        </div>
+
+        <div class="flex space-x-5 text-lg">
+            <a href="https://github.com/rakeshkumaryadav63" target="_blank">
+                <i class="fab fa-github hover:text-gray-400 transition"></i>
+            </a>
+
+            <a href="https://www.instagram.com/rakeshh._.yadav/" target="_blank">
+                <i class="fab fa-instagram hover:text-pink-400 transition"></i>
+            </a>
+
+            <a href="https://wa.me/919449380563" target="_blank">
+                <i class="fab fa-whatsapp hover:text-green-400 transition"></i>
+            </a>
+        </div>
 
     </div>
 </nav>
 
-<div class="container mx-auto mt-10 px-4">
+
+<div class="container mx-auto px-6">
     {% block content %}{% endblock %}
 </div>
 
-<footer class="bg-black text-white text-center p-4 mt-10">
-    © 2026 Rakesh Yadav
+
+<footer class="bg-gray-900 border-t border-white/10 mt-20">
+    <div class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-10">
+
+        <div>
+            <h3 class="text-lg font-semibold text-blue-400 mb-4">Rakesh Yadav</h3>
+            <p class="text-gray-400 text-sm">
+                Full Stack Django Developer building scalable web applications,
+                REST APIs and deployment-ready systems.
+            </p>
+        </div>
+
+        <div>
+            <h4 class="text-md font-semibold mb-4 text-gray-300">Quick Links</h4>
+            <ul class="space-y-2 text-gray-400 text-sm">
+                <li><a href="/" class="hover:text-white transition">Home</a></li>
+                <li><a href="/projects/" class="hover:text-white transition">Projects</a></li>
+                <li><a href="/about/" class="hover:text-white transition">About</a></li>
+                <li><a href="/contact/" class="hover:text-white transition">Contact</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="text-md font-semibold mb-4 text-gray-300">Connect</h4>
+            <div class="flex space-x-6 text-xl">
+                <a href="https://github.com/rakeshkumaryadav63" target="_blank">
+                    <i class="fab fa-github hover:text-gray-400 transition"></i>
+                </a>
+                <a href="https://www.instagram.com/rakeshh._.yadav/" target="_blank">
+                    <i class="fab fa-instagram hover:text-pink-400 transition"></i>
+                </a>
+                <a href="https://wa.me/919449380563" target="_blank">
+                    <i class="fab fa-whatsapp hover:text-green-400 transition"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center text-gray-500 text-sm py-4 border-t border-white/10">
+        © 2026 Rakesh Yadav. All rights reserved.
+    </div>
 </footer>
 
+
+
+<script>
+
+function revealOnScroll() {
+    document.querySelectorAll(".reveal").forEach((el) => {
+        const windowHeight = window.innerHeight;
+        const elementTop = el.getBoundingClientRect().top;
+        if (elementTop < windowHeight - 100) {
+            el.classList.add("active");
+        }
+    });
+}
+window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
+
+
+window.addEventListener("scroll", function() {
+    const nav = document.getElementById("navbar");
+    if (window.scrollY > 50) {
+        nav.classList.add("bg-black/60");
+    } else {
+        nav.classList.remove("bg-black/60");
+    }
+});
+
+const cursor = document.getElementById("cursor");
+const ring = document.getElementById("cursor-ring");
+
+document.addEventListener("mousemove", (e) => {
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+
+    ring.style.left = e.clientX + "px";
+    ring.style.top = e.clientY + "px";
+});
+
+document.querySelectorAll("a, button").forEach((el) => {
+    el.addEventListener("mouseenter", () => {
+        ring.classList.add("cursor-hover");
+    });
+    el.addEventListener("mouseleave", () => {
+        ring.classList.remove("cursor-hover");
+    });
+});
+</script>
+<script>
+const textArray = [
+    "I build Scalable Backend Systems.",
+    "I create Production-Ready REST APIs.",
+    "I deploy apps using Docker & CI/CD.",
+    "I turn ideas into Real-World Applications."
+];
+
+let typingText = document.getElementById("typing-text");
+let textIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+function typeEffect() {
+    if (!typingText) return;
+
+    const currentText = textArray[textIndex];
+
+    if (!isDeleting) {
+        typingText.textContent = currentText.substring(0, charIndex++);
+        if (charIndex > currentText.length) {
+            isDeleting = true;
+            setTimeout(typeEffect, 1200);
+            return;
+        }
+    } else {
+        typingText.textContent = currentText.substring(0, charIndex--);
+        if (charIndex === 0) {
+            isDeleting = false;
+            textIndex = (textIndex + 1) % textArray.length;
+        }
+    }
+
+    setTimeout(typeEffect, isDeleting ? 40 : 80);
+}
+
+document.addEventListener("DOMContentLoaded", typeEffect);
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    let slides = document.querySelectorAll(".profile-slide");
+    let current = 0;
+
+    if (slides.length === 0) return;
+
+    function showNextSlide() {
+
+        slides[current].style.opacity = 0;
+
+        setTimeout(() => {
+            current = (current + 1) % slides.length;
+            slides[current].style.opacity = 1;
+        }, 1000); 
+    }
+
+    setInterval(showNextSlide, 4000); 
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    let slides = document.querySelectorAll(".about-slide");
+    let current = 0;
+
+    if (slides.length === 0) return;
+
+    function showNext() {
+
+        slides[current].style.opacity = 0;
+
+        setTimeout(() => {
+            current = (current + 1) % slides.length;
+            slides[current].style.opacity = 1;
+        }, 1000);
+
+    }
+
+    setInterval(showNext, 4000);
+
+});
+</script>
 </body>
 </html>

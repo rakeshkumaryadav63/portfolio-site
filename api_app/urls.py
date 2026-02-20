@@ -7,8 +7,8 @@ from .views import (
 )
 
 urlpatterns = [
-    path('projects/', ProjectListAPIView.as_view(), name='api_projects'),
-    path('projects/<slug:slug>/', ProjectDetailAPIView.as_view(), name='api_project_detail'),
-    path('projects/create/', ProjectCreateAPIView.as_view(), name='api_project_create'),
-    path('contact/', ContactCreateAPIView.as_view(), name='api_contact'),
+    path('projects/create/', ProjectCreateAPIView.as_view(), name='api-project-create'),
+    path('projects/', ProjectListAPIView.as_view(), name='api-projects'),
+    path('projects/<slug:slug>/', ProjectDetailAPIView.as_view(), name='api-project-detail'),
+    path('contact/', ContactCreateAPIView.as_view(), name='api-contact'),
 ]

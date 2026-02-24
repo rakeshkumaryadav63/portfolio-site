@@ -1,41 +1,42 @@
 {% extends 'base.html' %}
-{% block title %}Create Project{% endblock %}
+
+{% block title %}Edit Project{% endblock %}
 
 {% block content %}
 
 <section class="min-h-screen py-16 bg-gray-900 text-white">
 <div class="max-w-xl mx-auto bg-gray-800 p-8 rounded-xl shadow-lg">
 
-<h2 class="text-2xl mb-6 text-green-400">Create New Project</h2>
+<h2 class="text-2xl mb-6 text-blue-400">Edit Project</h2>
 
 <form method="POST" enctype="multipart/form-data">
 {% csrf_token %}
 
 <label>Title</label>
-<input type="text" name="title" required
+<input type="text" name="title" value="{{ project.title }}" 
 class="w-full mb-4 p-2 bg-gray-700 rounded">
 
 <label>Description</label>
-<textarea name="description" required
-class="w-full mb-4 p-2 bg-gray-700 rounded"></textarea>
+<textarea name="description" 
+class="w-full mb-4 p-2 bg-gray-700 rounded">{{ project.description }}</textarea>
 
 <label>Tech Stack</label>
-<input type="text" name="tech_stack"
+<input type="text" name="tech_stack" value="{{ project.tech_stack }}" 
 class="w-full mb-4 p-2 bg-gray-700 rounded">
 
 <label>GitHub Link</label>
-<input type="url" name="github_link"
+<input type="url" name="github_link" value="{{ project.github_link }}" 
 class="w-full mb-4 p-2 bg-gray-700 rounded">
 
 <label>LinkedIn Link</label>
-<input type="url" name="linkedin_link"
+<input type="url" name="linkedin_link" value="{{ project.linkedin_link }}" 
 class="w-full mb-4 p-2 bg-gray-700 rounded">
 
 <label>Thumbnail</label>
-<input type="file" name="thumbnail" required class="mb-4">
+<input type="file" name="thumbnail" class="mb-4">
 
-<button class="bg-green-500 px-6 py-2 rounded hover:bg-green-600 transition">
-Create Project
+<button class="bg-blue-500 px-6 py-2 rounded hover:bg-blue-600 transition">
+Save Changes
 </button>
 
 </form>

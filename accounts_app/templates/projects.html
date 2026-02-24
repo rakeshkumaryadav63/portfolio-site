@@ -9,46 +9,97 @@
     <div class="text-center mb-12 reveal">
         <h2 class="text-4xl font-bold mb-4">My Projects</h2>
         <p class="text-gray-400">A showcase of my development work</p>
+
+        {% if user.is_superuser %}
+        <div class="mt-6">
+            <a href="{% url 'create_project' %}"
+               class="bg-green-500 px-6 py-3 rounded-xl hover:bg-green-600 transition shadow-lg">
+               + Add New Project
+            </a>
+        </div>
+        {% endif %}
+
     </div>
 
     {% if projects %}
     <div class="grid md:grid-cols-3 gap-8 px-6 reveal">
 
         {% for project in projects %}
-        <div class="bg-white/10 backdrop-blur-lg p-6 rounded-xl shadow-lg 
+        <div class="bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden shadow-lg 
                     hover:-translate-y-3 hover:shadow-2xl transition duration-500">
 
-            <h3 class="text-xl font-semibold mb-3 text-blue-400">
-                {{ project.title }}
-            </h3>
+            {% if project.thumbnail %}
+            <img src="{{ project.thumbnail.url }}" 
+                 class="w-full h-48 object-cover">
+            {% endif %}
 
-            <p class="text-gray-300 mb-4">
-                {{ project.description|truncatewords:15 }}
-            </p>
+            <div class="p-6">
 
-            <div class="flex justify-between items-center mt-4">
-                <a href="{% url 'project_detail' project.slug %}" 
-                   class="text-sm text-yellow-400 hover:underline">
-                   View Details →
-                </a>
+                <h3 class="text-xl font-semibold mb-3 text-blue-400">
+                    {{ project.title }}
+                </h3>
 
-                <span class="text-xs text-gray-400">
-                    {{ project.created_date|date:"M d, Y" }}
-                </span>
+                <p class="text-gray-300 mb-4 text-sm leading-relaxed">
+                    {{ project.description|truncatewords:25 }}
+                </p>
+
+                <p class="text-xs text-yellow-400 mb-4">
+                    {{ project.tech_stack }}
+                </p>
+
+                <div class="flex justify-between items-center">
+
+                    <div class="flex space-x-3">
+
+                        {% if project.github_link %}
+                        <a href="{{ project.github_link }}" target="_blank"
+                           class="bg-gray-800 px-4 py-2 rounded-lg text-sm hover:bg-gray-700 transition">
+                           GitHub
+                        </a>
+                        {% endif %}
+
+                        {% if project.linkedin_link %}
+                        <a href="{{ project.linkedin_link }}" target="_blank"
+                           class="bg-blue-500 px-4 py-2 rounded-lg text-sm hover:bg-blue-600 transition">
+                           LinkedIn
+                        </a>
+                        {% endif %}
+
+                    </div>
+
+                    <span class="text-xs text-gray-400">
+                        {{ project.created_date|date:"M Y" }}
+                    </span>
+
+                </div>
+
+                {% if user.is_superuser %}
+                <div class="mt-4 flex space-x-3">
+
+                    <a href="{% url 'edit_project' project.id %}"
+                       class="bg-yellow-500 px-3 py-1 rounded text-sm hover:bg-yellow-600 transition">
+                       Edit
+                    </a>
+
+                    <a href="{% url 'delete_project' project.id %}"
+                       class="bg-red-500 px-3 py-1 rounded text-sm hover:bg-red-600 transition">
+                       Delete
+                    </a>
+
+                </div>
+                {% endif %}
+
             </div>
-
         </div>
         {% endfor %}
 
     </div>
-    {% else %}
 
-   
+    {% else %}
     <div class="text-center mt-20">
-        <h3 class="text-2xl text-gray-300 mb-4"> Projects Coming Soon</h3>
+        <h3 class="text-2xl text-gray-300 mb-4">Projects Coming Soon</h3>
         <p class="text-gray-500">I am currently building amazing things. Stay tuned!</p>
     </div>
-
     {% endif %}
 
 </section>

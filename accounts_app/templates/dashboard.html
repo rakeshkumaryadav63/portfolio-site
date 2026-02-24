@@ -1,19 +1,131 @@
 {% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
 
 {% block content %}
 
-<h2 class="text-3xl font-bold mb-6">
-    Welcome {{ request.user.username }} 
-</h2>
+<section class="min-h-screen py-12 bg-gray-950 text-white">
 
-<p>This is your protected dashboard.</p>
+<div class="max-w-7xl mx-auto px-6">
 
-{% if request.user.is_superuser %}
-    <div class="mt-6">
-        <a href="/admin/" class="bg-red-600 text-white px-4 py-2 rounded">
-            Go to Admin Panel
-        </a>
+    <h1 class="text-4xl font-bold mb-10">
+        Admin Dashboard
+    </h1>
+
+    <!-- Stats Cards -->
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+
+        <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-8 rounded-2xl shadow-xl">
+            <h2 class="text-lg">Total Projects</h2>
+            <p class="text-5xl font-bold mt-4">{{ total_projects }}</p>
+        </div>
+
+        <div class="bg-gradient-to-r from-green-600 to-green-800 p-8 rounded-2xl shadow-xl">
+            <h2 class="text-lg">Total Messages</h2>
+            <p class="text-5xl font-bold mt-4">{{ total_messages }}</p>
+        </div>
+
     </div>
-{% endif %}
+
+    <!-- Projects Table -->
+    <div class="bg-gray-900 p-6 rounded-2xl shadow-lg mb-12">
+
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl text-blue-400">Manage Projects</h2>
+
+            <a href="{% url 'create_project' %}"
+               class="bg-green-500 px-5 py-2 rounded-lg hover:bg-green-600 transition">
+               + Add Project
+            </a>
+        </div>
+
+        <div class="overflow-x-auto">
+        <table class="w-full text-left">
+
+            <thead class="border-b border-gray-700 text-gray-400">
+                <tr>
+                    <th class="py-3">Title</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            {% for project in recent_projects %}
+            <tr class="border-b border-gray-800 hover:bg-gray-800 transition">
+
+                <td class="py-4">{{ project.title }}</td>
+                <td>{{ project.created_date|date:"M d, Y" }}</td>
+
+                <td class="space-x-2">
+
+                    <a href="{% url 'edit_project' project.id %}"
+                       class="bg-yellow-500 px-3 py-1 rounded text-sm hover:bg-yellow-600">
+                       Edit
+                    </a>
+
+                    <a href="{% url 'delete_project' project.id %}"
+                       class="bg-red-500 px-3 py-1 rounded text-sm hover:bg-red-600">
+                       Delete
+                    </a>
+
+                </td>
+
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="py-4 text-gray-500">No projects found.</td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+        </div>
+
+    </div>
+
+    <!-- Messages Table -->
+    <div class="bg-gray-900 p-6 rounded-2xl shadow-lg">
+
+        <h2 class="text-2xl text-green-400 mb-6">Recent Contact Messages</h2>
+
+        <div class="overflow-x-auto">
+        <table class="w-full text-left">
+
+            <thead class="border-b border-gray-700 text-gray-400">
+                <tr>
+                    <th class="py-3">Name</th>
+                    <th>Email</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            {% for msg in recent_messages %}
+            <tr class="border-b border-gray-800 hover:bg-gray-800 transition">
+
+                <td class="py-4">{{ msg.name }}</td>
+                <td>{{ msg.email }}</td>
+                <td>{{ msg.timestamp|date:"M d, Y" }}</td>
+
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="py-4 text-gray-500">No messages yet.</td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+        </div>
+
+    </div>
+
+</div>
+
+</section>
 
 {% endblock %}
